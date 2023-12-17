@@ -16,6 +16,7 @@
 
    
     
+    
 const fetch = require('node-fetch');
 const Movies = (movietitle, callback) => {
     const url = 'https://api.themoviedb.org/3/search/movie?query='+movietitle+'&include_adult=false&api_key=ade17eed9d70b9a469535858ce186094&language=en-US&page=1';
@@ -27,11 +28,11 @@ const options = {
   }
 };
 
-fetch(url, options)
+return fetch(url, options)
   .then(res => res.json())
-  .then(json => console.log(json))
+  .then(json => (json))
   .catch(err => console.error('error:' + err));
     
 }
-
+// Movies("matrix").then(res=>console.log(res));
 module.exports = Movies;
