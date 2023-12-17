@@ -26,12 +26,12 @@ app.get('', (req, res) => {
 })
 app.get('/similar', (req, res) => {
 
-    if (!req.query.movieTitle) {
+    if (!req.query.movie) {
         return res.send({
             error: "You must submit a movie"
         })
     }
-    movie(req.query.movieTitle, (error, { movie, id } = {})=> {
+    movie(req.query.movie, (error, { movie, id } = {})=> {
         if (error) {
             return res.send({error})
         }
