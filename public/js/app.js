@@ -1,61 +1,24 @@
-// Get references to HTML elements using their IDs
 const userInput = document.getElementById('userInput');
 const submit = document.getElementById('submit');
 const message1 = document.querySelector('#message1');
 const display = document.getElementById('display');
 
-// Function to fetch similar movies from the server
-const fetchSimilarMovies = async (movieTitle) => {
-    try {
-        // Make an asynchronous request to the server's API for similar movies
-        const response = await fetch(`http://localhost:3000/similar?movie=${movieTitle}`);
-        // Parse the response as JSON
-        const data = await response.json();
-        // Return the data
-        return data;
-    } catch (error) {
-        // Log and throw an error if there's an issue with the fetch
-        console.error('Error fetching similar movies:', error);
-        throw error;
-    }
-};
+// Add an event listener to the submit button
+submit.addEventListener('click', async (e) => {
+    // Prevent the default form submission behavior
+    e.preventDefault();
 
-// Function to create a container for a movie with a title and image
-const createMovieContainer = (title, imageUrl) => {
-    // Create a new HTML section element
-    const container = document.createElement('section');
-    // Add a CSS class to the container
-    container.className = 'similar-container';
-
-    // Create an image element
-    const imageElement = document.createElement('img');
-    // Set the image source and alt text
-    imageElement.src = imageUrl;
-    imageElement.alt = title;
-    // Append the image to the container
-    container.appendChild(imageElement);
-
-    // Create a paragraph element for the title
-    const titleElement = document.createElement('p');
-    // Set the text content of the title
-    titleElement.textContent = title;
-    // Append the title to the container
-    container.appendChild(titleElement);
-
-    // Return the container
-    return container;
-};
-
-// Function to display similar movies on the web page
-const displaySimilarMovies = async () => {
     // Clear the existing content in the 'display' element
     display.innerHTML = "";
 
     try {
         // Get the user-inputted movie title
         const movieTitle = userInput.value;
-        // Fetch similar movies using the provided title
-        const data = await fetchSimilarMovies(movieTitle);
+
+        // Make an asynchronous request to the server's API for similar movies
+        const response = await fetch(`http://localhost:3000/similar?movie=${movieTitle}`);
+        // Parse the response as JSON
+        const data = await response.json();
 
         // Check for errors in the fetched data
         if (data.error) {
@@ -64,8 +27,7 @@ const displaySimilarMovies = async () => {
         } else {
             // Create a container for the searched movie title
             const titleContainer = document.createElement('div');
-            // Add a CSS class to the title container
-            titleContainer.className = 'searched-movie-title';
+            
 
             // Create an h2 element for the title
             const titleElement = document.createElement('h2');
@@ -79,24 +41,36 @@ const displaySimilarMovies = async () => {
 
             // Display each similar movie
             data.similar.forEach((title, i) => {
-                // Create a container for each similar movie
-                const container = createMovieContainer(title, data.images[i]);
+                // Create a new HTML section element
+                const container = document.createElement('section');
+                // Add a CSS class to the container
+                container.className = 'similar-container';
+
+                // Create an image element
+                const imageElement = document.createElement('img');
+                // Set the image source and alt text
+                imageElement.src = data.images[i];
+                imageElement.alt = title;
+                // Append the image to the container
+                container.appendChild(imageElement);
+
+                // Create a paragraph element for the title
+                const titleElement = document.createElement('p');
+                // Set the text content of the title
+                titleElement.textContent = title;
+                // Append the title to the container
+                container.appendChild(titleElement);
+
                 // Append the container to the 'display' element
                 display.appendChild(container);
             });
         }
     } catch (error) {
-        // Handle errors as needed
+        // Log and handle errors as needed
+        console.error('Error:', error);
     }
-};
-
-// Add an event listener to the submit button
-submit.addEventListener('click', (e) => {
-    // Prevent the default form submission behavior
-    e.preventDefault();
-    // Call the function to display similar movies
-    displaySimilarMovies();
 });
+
 
 //     const options = {
 //         method: 'GET',
