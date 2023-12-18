@@ -91,4 +91,3 @@ module.exports = Movies;
 
 
 // Movies("matrix").then(res=>console.log(res));
-module.exports = Movies;
