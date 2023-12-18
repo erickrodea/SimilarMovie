@@ -1,22 +1,3 @@
-// const fetch = require('node-fetch');
-
-// const url = 'https://api.themoviedb.org/3/movie/561?api_key=ade17eed9d70b9a469535858ce186094&language=en-US&page=1';
-// const options = {
-//   method: 'GET',
-//   headers: {
-//     accept: 'application/json',
-//     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZGUxN2VlZDlkNzBiOWE0Njk1MzU4NThjZTE4NjA5NCIsInN1YiI6IjY1NzliNGQ2ZWM4YTQzMDExYTNhZjc0NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w9onnPn6ncV4Vfg9jaQkWS5R6s8_zwculWSCS2i8z_k'
-//   }
-// };
-
-// fetch(url)
-//   .then(res => res.json())
-//   .then(json => console.log(json))
-//     .catch(err => console.error('error:' + err));
-
-   
-    
-    
 // We import the 'node-fetch' library, which helps us fetch data from a web API.
 const fetch = require('node-fetch');
 
@@ -83,35 +64,22 @@ const Movies = async (movietitle, callback) => {
                     // We pass the result to the callback function.
                     return callback(undefined, result);
 
-            // We make the second API call to get similar movies.
-            // We convert the response to JSON format.
-            // fetch(url2, options2)
-            //     .then(res => res.json())//json object from response
-            //     .then(json => {
-            //         // We loop through each result from the second API call.
-            //         json.results.forEach(element => {
-            //             // We add the title and image URL to the respective arrays.
-            //             similar.push(element.title);
-            //             images.push("https://image.tmdb.org/t/p/original/" + element.poster_path);
-            //         });
-
-            //         // We create an object containing the arrays of similar titles and image URLs.
-            //         const result = {
-            //             similar: similar,
-            //             images: images
-            //         };
-
-            //         // We pass the result to the callback function.
-            //         return callback(undefined, result);
-            //     })
-            //     .catch(err => console.error('error' + err));
+        
         
     } catch (error) {
         // Log and handle errors as needed
         console.error('Error:', error);
     }
 
-    // We make the first API call using the 'fetch' function, passing in the URL and options.
+   
+}
+
+// We export the 'Movies' function so that it can be used in other files.
+module.exports = Movies;
+
+
+// Movies("matrix").then(res=>console.log(res));
+ // We make the first API call using the 'fetch' function, passing in the URL and options.
     // We convert the response to JSON format.
     // return fetch(url, options)
     //     .then(res => res.json())
@@ -164,10 +132,4 @@ const Movies = async (movietitle, callback) => {
     //             .catch(err => console.error('error' + err));
     //     })
     //     .catch(err => console.error('error:' + err));
-}
-
-// We export the 'Movies' function so that it can be used in other files.
-module.exports = Movies;
-
-
-// Movies("matrix").then(res=>console.log(res));
+//}
